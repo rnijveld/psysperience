@@ -10,6 +10,9 @@ apply plugin: 'com.android.application'
 
 repositories {
     jcenter()
+    maven {
+        url "https://raw.github.com/Fitbit/fitbit4j/gh-pages/release/"
+    }
 }
 
 android {
@@ -29,9 +32,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'README'
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile group: 'org.bytedeco', name: 'javacv', version: '0.10'
+    compile group: 'com.fitbit', name: 'fitbit4j', version: '1.0.25'
 }
