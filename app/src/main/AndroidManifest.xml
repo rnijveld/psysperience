@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nl.droptables.psysperience.app" >
-
-<<<<<<< HEAD
+    
     <uses-permission android:name="android.permission.RECORD_AUDIO"></uses-permission>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"></uses-permission>
     <uses-permission android:name="android.permission.CAPTURE_AUDIO_OUTPUT"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-=======
     <uses-permission android:name="android.permission.CAMERA"/>
->>>>>>> 8c0466861d821b25e60b47db6f0883ae519db99f
 
     <application
         android:allowBackup="true"

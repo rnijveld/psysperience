@@ -52,7 +52,7 @@ public class MediaActivity extends Activity {
 
         try{
 //            mRecorder.setOutputFile(tmpaudiofile);
-            mRecorder.setOu
+            mRecorder.setOutputFile(tmpaudiofile);
         } catch (IllegalStateException e) {
             Log.e(LOG_TAG, "record set outputfile failed");
         }
