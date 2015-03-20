@@ -98,5 +98,7 @@
     <orderEntry type="library" exported="" name="javacpp-0.10" level="project" />
     <orderEntry type="library" exported="" name="opencv-2.4.10-0.10-android-arm" level="project" />
     <orderEntry type="library" exported="" name="libdc1394-2.2.2-0.10" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
   </component>
 </module>
