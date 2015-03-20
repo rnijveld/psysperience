@@ -13,6 +13,9 @@ repositories {
     maven {
         url "https://raw.github.com/Fitbit/fitbit4j/gh-pages/release/"
     }
+    maven {
+        url 'https://raw.github.com/vRallev/mvn-repo/master/'
+    }
 }
 
 android {
@@ -48,6 +51,10 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile group: 'org.opencv', name: 'opencv-android', version: '2.4.8'
+    compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '2.4.10-0.10', classifier: 'android-arm'
+    compile group: 'org.bytedeco.javacpp-presets', name: 'ffmpeg', version: '2.5.1-0.10', classifier: 'android-arm'
     compile group: 'org.bytedeco', name: 'javacv', version: '0.10'
     compile group: 'com.fitbit', name: 'fitbit4j', version: '1.0.25'
+    compile 'com.android.support:support-v4:21.+'
 }
