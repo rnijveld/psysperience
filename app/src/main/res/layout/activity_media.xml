@@ -6,16 +6,22 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context=".MainMenuActivity">
+                tools:context="nl.droptables.psysperience.app.MediaActivity">
 
     <TextView
             android:text="@string/hello_world"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView"/>
+            android:layout_height="wrap_content"/>
+    <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="geluidje"
+            android:id="@+id/short_media" android:layout_centerHorizontal="true" android:layout_centerVertical="true"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="mediatest"
-            android:id="@+id/media_test_button" android:layout_alignParentBottom="true" android:layout_alignParentStart="true" android:onClick="goToMediaActivity" />
+            android:text="GELUID"
+            android:id="@+id/long_media" android:layout_below="@+id/short_media" android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
