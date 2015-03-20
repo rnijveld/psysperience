@@ -11,6 +11,9 @@ apply plugin: 'com.android.application'
 repositories {
     jcenter()
     maven {
+        url "https://raw.github.com/Fitbit/fitbit4j/gh-pages/release/"
+    }
+    maven {
         url 'https://raw.github.com/vRallev/mvn-repo/master/'
     }
 }
@@ -32,6 +35,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
 }
 
 dependencies {
@@ -40,4 +55,5 @@ dependencies {
     compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '2.4.10-0.10', classifier: 'android-arm'
     compile group: 'org.bytedeco.javacpp-presets', name: 'ffmpeg', version: '2.5.1-0.10', classifier: 'android-arm'
     compile group: 'org.bytedeco', name: 'javacv', version: '0.10'
+    compile group: 'com.fitbit', name: 'fitbit4j', version: '1.0.25'
 }
