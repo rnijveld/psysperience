@@ -49,7 +49,7 @@ public class GPUImage {
     private ScaleType mScaleType;
 
     public GPUImage(Context context) {
-        this.mScaleType = ScaleType.CENTER_CROP;
+        this.mScaleType = ScaleType.CENTER_INSIDE;
         if(!this.supportsOpenGLES2(context)) {
             throw new IllegalStateException("OpenGL ES 2.0 is not supported on this phone.");
         } else {

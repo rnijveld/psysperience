@@ -93,9 +93,7 @@ public class GPUImageRenderer implements GLSurfaceView.Renderer, Camera.PreviewC
     }
 
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
-        GLES20.glClearColor(0.0F, 0.0F, 0.0F, 1.0F);
-        GLES20.glDisable(2929);
-        this.mFilter.init();
+
     }
 
     public void onSurfaceChanged(GL10 gl, int width, int height) {
@@ -305,12 +303,12 @@ public class GPUImageRenderer implements GLSurfaceView.Renderer, Camera.PreviewC
 
     @Override
     public void onNewFrame(HeadTransform headTransform) {
+        GLES20.glClear(16640);
 
     }
 
     @Override
     public void onDrawEye(Eye eye) {
-        GLES20.glClear(16640);
         this.runAll(this.mRunOnDraw);
         this.mFilter.onDraw(this.mGLTextureId, this.mGLCubeBuffer, this.mGLTextureBuffer);
         this.runAll(this.mRunOnDrawEnd);
