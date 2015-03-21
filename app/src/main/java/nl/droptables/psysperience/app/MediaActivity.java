@@ -34,8 +34,7 @@ public class MediaActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        playBackground();
-        playSchizo();
+        playBackground();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media);
 
@@ -75,11 +74,6 @@ public class MediaActivity extends Activity {
         final MediaPlayer mp_background = MediaPlayer.create(this, R.raw.background_sound);
         mp_background.setVolume(0.5f, 0.5f);
         mp_background.start();
-    }
-
-    public void playSchizo(){
-        final MediaPlayer mp_schizo = MediaPlayer.create(this, R.raw.schizo_sound);
-        mp_schizo.start();
     }
 
     public void playRandom(){
