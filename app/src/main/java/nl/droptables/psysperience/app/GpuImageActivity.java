@@ -44,7 +44,7 @@ public class GpuImageActivity extends CardboardActivity {
     private CameraLoader mCamera;
     private GPUImageFilter mFilter;
     private GPUImageFilterTools.FilterAdjuster mFilterAdjuster;
-    private int numberOfFilters = 11;
+    private int numberOfFilters = 8;
     private Timer timer;
     private TimerTask timerTask;
     private Handler handler;
@@ -139,7 +139,7 @@ public class GpuImageActivity extends CardboardActivity {
     }
 
     public void applyFilters() {
-        applyRandomFilter(0);
+        applyRandomFilter(7);
     }
 
     @Override
@@ -163,32 +163,23 @@ public class GpuImageActivity extends CardboardActivity {
                 switchFilterTo(new GPUImageGammaFilter(2.0f));
                 break;
             case 3:
-                switchFilterTo(new GPUImageBrightnessFilter(1.5f));
+                switchFilterTo(new GPUImageHueFilter(70.0f));
                 break;
             case 4:
                 switchFilterTo(new GPUImageSepiaFilter());
                 break;
             case 5:
-                switchFilterTo(new GPUImageSobelEdgeDetection());
+                switchFilterTo(new GPUImageHueFilter(50.0f));
                 break;
             case 6:
                 switchFilterTo(new GPUImageEmbossFilter());
                 break;
             case 7:
-                switchFilterTo(new GPUImageSaturationFilter(1.0f));
-                break;
-            case 8:
-                switchFilterTo(new GPUImageExposureFilter(0.0f));
-                break;
-            case 9:
-                switchFilterTo(new GPUImageMonochromeFilter(1.0f, new float[]{0.6f, 0.45f, 0.3f, 1.0f}));
-                break;
-            case 10:
                 switchFilterTo(new GPUImageSwirlFilter());
                 mFilterAdjuster.adjust(5);
                 break;
-            case 11:
-                switchFilterTo(new GPUImageColorBalanceFilter());
+            case 8:
+                switchFilterTo(new GPUImageSobelEdgeDetection(););
                 break;
         }
     }
