@@ -1,6 +1,7 @@
 package nl.droptables.psysperience.app;
 
 import android.app.Activity;
+import android.content.res.TypedArray;
 import android.media.*;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.media.audiofx.Equalizer;
 
 import java.io.IOException;
+import java.util.Random;
 
 import static android.media.AudioFormat.*;
 
@@ -75,14 +77,6 @@ public class MediaActivity extends Activity {
     }
 
     private void startPlaying() {
-//        recorder = new AudioRecord(MediaRecorder.AudioSource.MIC, 44100,
-//                CHANNEL_IN_MONO,
-//                ENCODING_PCM_16BIT, 2);
-//        track = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
-//                CHANNEL_OUT_MONO,
-//                ENCODING_PCM_16BIT, 2,
-//                AudioTrack.MODE_STREAM);
-//        track.play();
 
         mPlayer = new MediaPlayer();
         try {
@@ -112,36 +106,11 @@ public class MediaActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media);
 
-        Button chirp = (Button)this.findViewById(R.id.short_media);
         Button music = (Button)this.findViewById(R.id.long_media);
-        final MediaPlayer mp_chirp = MediaPlayer.create(this, R.raw.chirp);
-        final MediaPlayer mp_music = MediaPlayer.create(this, R.raw.music);
-        mp_chirp.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mp_music.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-        chirp.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-//                startRecording();
-//                startPlaying();
-                mp_chirp.start();
-//                mp_chirp.setLooping(true);
-
-            }
-        });
         music.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
-                mp_music.start();
-                // equalizer experiment
-//                Equalizer eq = new Equalizer(0, mp_music.getAudioSessionId());
-//                eq.setEnabled(true);
-//                short bands = eq.getNumberOfBands();
-//
-//                final short minEQLevel = eq.getBandLevelRange()[0];
-//                final short maxEQLevel = eq.getBandLevelRange()[1];
-//
-//                eq.setBandLevel(bands, (short) 1);
+                playRandom();
             }
         });
     }
@@ -167,5 +136,77 @@ public class MediaActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void playRandom() {
+        // load all the sounds! BTW, it's only 01:24 :')
+        final MediaPlayer mp_0 = MediaPlayer.create(this, R.raw.a);
+        final MediaPlayer mp_1 = MediaPlayer.create(this, R.raw.b);
+        final MediaPlayer mp_2 = MediaPlayer.create(this, R.raw.c);
+        final MediaPlayer mp_3 = MediaPlayer.create(this, R.raw.d);
+        final MediaPlayer mp_4 = MediaPlayer.create(this, R.raw.e);
+        final MediaPlayer mp_5 = MediaPlayer.create(this, R.raw.f);
+        final MediaPlayer mp_6 = MediaPlayer.create(this, R.raw.g);
+        final MediaPlayer mp_7 = MediaPlayer.create(this, R.raw.h);
+        final MediaPlayer mp_8 = MediaPlayer.create(this, R.raw.i);
+        final MediaPlayer mp_9 = MediaPlayer.create(this, R.raw.j);
+
+        int randomInt = this.randInt(0,9);
+
+        switch (randomInt) {
+            case 0:
+                mp_0.start();
+                break;
+            case 1:
+                mp_1.start();
+                break;
+            case 2:
+                mp_2.start();
+                break;
+            case 3:
+                mp_3.start();
+                break;
+            case 4:
+                mp_4.start();
+                break;
+            case 5:
+                mp_5.start();
+                break;
+            case 6:
+                mp_6.start();
+                break;
+            case 7:
+                mp_7.start();
+                break;
+            case 8:
+                mp_8.start();
+                break;
+            case 9:
+                mp_9.start();
+                break;
+        }
+    }
+
+    /**
+     * Returns a pseudo-random number between min and max, inclusive.
+     * The difference between min and max can be at most
+     * <code>Integer.MAX_VALUE - 1</code>.
+     *
+     * @param min Minimum value
+     * @param max Maximum value.  Must be greater than min.
+     * @return Integer between min and max, inclusive.
+     * @see java.util.Random#nextInt(int)
+     */
+    public static int randInt(int min, int max) {
+
+        // NOTE: Usually this should be a field rather than a method
+        // variable so that it is not re-seeded every call.
+        Random rand = new Random();
+
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
     }
 }
