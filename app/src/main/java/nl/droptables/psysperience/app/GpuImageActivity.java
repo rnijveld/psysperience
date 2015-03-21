@@ -59,7 +59,7 @@ public class GpuImageActivity extends CardboardActivity {
                 }
             }
         );
-        // applyFilters();
+         applyFilters();
         playBackground();
     }
 
@@ -121,7 +121,7 @@ public class GpuImageActivity extends CardboardActivity {
     }
 
     public void applyFilters() {
-        applyRandomFilter(8);
+        applyRandomFilter(-1);
     }
 
     @Override
