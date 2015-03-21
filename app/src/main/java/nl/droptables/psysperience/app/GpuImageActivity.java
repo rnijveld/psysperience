@@ -49,6 +49,7 @@ public class GpuImageActivity extends CardboardActivity {
     private TimerTask timerTask;
     private Handler handler;
     private GestureDetector mGestureDetector;
+    private MediaPlayer mp_background;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class GpuImageActivity extends CardboardActivity {
 
         mCameraHelper = new CameraHelper();
         mCamera = new CameraLoader();
+
 
         getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(
             new View.OnSystemUiVisibilityChangeListener() {
@@ -80,7 +82,7 @@ public class GpuImageActivity extends CardboardActivity {
     }
 
     public void playBackground(){
-        final MediaPlayer mp_background = MediaPlayer.create(this, R.raw.background_sound);
+        mp_background = MediaPlayer.create(this, R.raw.background_sound);
         mp_background.setLooping(true);
         mp_background.start();
     }
