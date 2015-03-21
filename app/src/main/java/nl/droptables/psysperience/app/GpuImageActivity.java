@@ -110,12 +110,14 @@ public class GpuImageActivity extends CardboardActivity {
     protected void onResume() {
         super.onResume();
         mCamera.onResume();
+        mp_background.start();
         setupGestureDetector();
     }
 
     @Override
     protected void onPause() {
         mCamera.onPause();
+        mp_background.pause();
         super.onPause();
     }
 
