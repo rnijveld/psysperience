@@ -99,26 +99,10 @@ public class GPUImageRenderer implements GLSurfaceView.Renderer, Camera.PreviewC
     }
 
     public void onSurfaceChanged(GL10 gl, int width, int height) {
-        this.mOutputWidth = width;
-        this.mOutputHeight = height;
-        GLES20.glViewport(0, 0, width, height);
-        GLES20.glUseProgram(this.mFilter.getProgram());
-        this.mFilter.onOutputSizeChanged(width, height);
-        this.adjustImageScaling();
-        Object var4 = this.mSurfaceChangedWaiter;
-        synchronized(this.mSurfaceChangedWaiter) {
-            this.mSurfaceChangedWaiter.notifyAll();
-        }
+
     }
 
     public void onDrawFrame(GL10 gl) {
-        GLES20.glClear(16640);
-        this.runAll(this.mRunOnDraw);
-        this.mFilter.onDraw(this.mGLTextureId, this.mGLCubeBuffer, this.mGLTextureBuffer);
-        this.runAll(this.mRunOnDrawEnd);
-        if(this.mSurfaceTexture != null) {
-            this.mSurfaceTexture.updateTexImage();
-        }
 
     }
 

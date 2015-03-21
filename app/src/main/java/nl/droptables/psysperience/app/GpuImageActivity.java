@@ -37,7 +37,7 @@ import nl.droptables.psysperience.app.helper.GPUImageFilterTools;
 
 import javax.microedition.khronos.egl.EGLConfig;
 
-public class GpuImageActivity extends CardboardActivity implements View.OnClickListener {
+public class GpuImageActivity extends CardboardActivity {
 
     private GPUImage mGPUImage;
     private CameraHelper mCameraHelper;
@@ -63,12 +63,6 @@ public class GpuImageActivity extends CardboardActivity implements View.OnClickL
         mCameraHelper = new CameraHelper();
         mCamera = new CameraLoader();
 
-        View cameraSwitchView = findViewById(R.id.img_switch_camera);
-        cameraSwitchView.setOnClickListener(this);
-        if (!mCameraHelper.hasFrontCamera() || !mCameraHelper.hasBackCamera()) {
-            cameraSwitchView.setVisibility(View.GONE);
-        }
-
         getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(
             new View.OnSystemUiVisibilityChangeListener() {
                 @Override
@@ -88,7 +82,6 @@ public class GpuImageActivity extends CardboardActivity implements View.OnClickL
     public void playBackground(){
         final MediaPlayer mp_background = MediaPlayer.create(this, R.raw.background_sound);
         mp_background.setLooping(true);
-        mp_background.
         mp_background.start();
     }
 
@@ -141,15 +134,6 @@ public class GpuImageActivity extends CardboardActivity implements View.OnClickL
     protected void onPause() {
         mCamera.onPause();
         super.onPause();
-    }
-
-    @Override
-    public void onClick(final View v) {
-        switch (v.getId()) {
-            case R.id.img_switch_camera:
-                mCamera.switchCamera();
-                break;
-        }
     }
 
     public void applyFilters() {
