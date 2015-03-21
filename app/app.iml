@@ -98,6 +98,7 @@
     <orderEntry type="library" exported="" name="gpuimage-library-1.2.3" level="project" />
     <orderEntry type="library" exported="" name="opencv-2.4.10-0.10" level="project" />
     <orderEntry type="library" exported="" name="artoolkitplus-2.3.1-0.10" level="project" />
+    <orderEntry type="library" exported="" name="cardboard" level="project" />
     <orderEntry type="library" exported="" name="javacpp-0.10" level="project" />
     <orderEntry type="library" exported="" name="opencv-2.4.10-0.10-android-arm" level="project" />
     <orderEntry type="library" exported="" name="libdc1394-2.2.2-0.10" level="project" />
