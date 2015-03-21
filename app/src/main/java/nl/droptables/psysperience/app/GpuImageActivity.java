@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
+import android.media.MediaPlayer;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
+import com.google.vrtoolkit.cardboard.*;
 import jp.co.cyberagent.android.gpuimage.*;
 import nl.droptables.psysperience.app.helper.CameraHelper;
 import nl.droptables.psysperience.app.helper.GPUImageFilterTools;
@@ -20,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import android.os.Handler;
@@ -27,10 +30,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import com.google.vrtoolkit.cardboard.CardboardView;
-import com.google.vrtoolkit.cardboard.Eye;
-import com.google.vrtoolkit.cardboard.HeadTransform;
-import com.google.vrtoolkit.cardboard.Viewport;
 import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
 import nl.droptables.psysperience.app.cardboard.GPUImage;
 import nl.droptables.psysperience.app.helper.CameraHelper;
@@ -38,7 +37,7 @@ import nl.droptables.psysperience.app.helper.GPUImageFilterTools;
 
 import javax.microedition.khronos.egl.EGLConfig;
 
-public class GpuImageActivity extends Activity implements View.OnClickListener {
+public class GpuImageActivity extends CardboardActivity implements View.OnClickListener {
 
     private GPUImage mGPUImage;
     private CameraHelper mCameraHelper;
@@ -83,6 +82,14 @@ public class GpuImageActivity extends Activity implements View.OnClickListener {
             }
         );
         applyFilters();
+        playBackground();
+    }
+
+    public void playBackground(){
+        final MediaPlayer mp_background = MediaPlayer.create(this, R.raw.background_sound);
+        mp_background.setLooping(true);
+        mp_background.
+        mp_background.start();
     }
 
     private void setupGestureDetector() {
@@ -146,12 +153,17 @@ public class GpuImageActivity extends Activity implements View.OnClickListener {
     }
 
     public void applyFilters() {
+        applyRandomFilter(0);
+    }
+
+    @Override
+    public void onCardboardTrigger() {
         applyRandomFilter(-1);
     }
 
     public void applyRandomFilter(int rand) {
         if (rand == -1) {
-            rand = MediaActivity.randInt(0, numberOfFilters);
+            rand = this.randInt(0, numberOfFilters);
         }
 
         switch (rand) {
@@ -268,5 +280,28 @@ public class GpuImageActivity extends Activity implements View.OnClickListener {
             mCameraInstance = null;
         }
 
+    }
+
+    /**
+     * Returns a pseudo-random number between min and max, inclusive.
+     * The difference between min and max can be at most
+     * <code>Integer.MAX_VALUE - 1</code>.
+     *
+     * @param min Minimum value
+     * @param max Maximum value.  Must be greater than min.
+     * @return Integer between min and max, inclusive.
+     * @see java.util.Random#nextInt(int)
+     */
+    public static int randInt(int min, int max) {
+
+        // NOTE: Usually this should be a field rather than a method
+        // variable so that it is not re-seeded every call.
+        Random rand = new Random();
+
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
     }
 }

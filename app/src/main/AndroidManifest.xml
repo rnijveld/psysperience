@@ -29,11 +29,6 @@
                 <category android:name="com.google.intent.category.CARDBOARD" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MediaActivity"
-            android:label="@string/title_activity_media"
-            android:screenOrientation="landscape">
-        </activity>
         <activity android:name=".GpuImageActivity" android:label="GpuImageActivity" android:screenOrientation="landscape"></activity>
     </application>
 </manifest>

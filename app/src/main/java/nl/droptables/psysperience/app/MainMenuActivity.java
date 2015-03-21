@@ -3,13 +3,15 @@ package nl.droptables.psysperience.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import com.google.vrtoolkit.cardboard.CardboardActivity;
 
 
-public class MainMenuActivity extends Activity {
+public class MainMenuActivity extends CardboardActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +43,9 @@ public class MainMenuActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void openRecordActivity(View view) {
+    @Override
+    public void onCardboardTrigger() {
         Intent intent = new Intent(this, GpuImageActivity.class);
-        startActivity(intent);
-    }
-
-    public void goToMediaActivity(View view) {
-        Intent intent = new Intent(this, MediaActivity.class);
         startActivity(intent);
     }
 }
