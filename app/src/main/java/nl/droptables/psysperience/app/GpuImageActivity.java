@@ -121,7 +121,7 @@ public class GpuImageActivity extends CardboardActivity {
     }
 
     public void applyFilters() {
-        applyRandomFilter(7);
+        applyRandomFilter(8);
     }
 
     @Override
@@ -161,7 +161,7 @@ public class GpuImageActivity extends CardboardActivity {
                 mFilterAdjuster.adjust(5);
                 break;
             case 8:
-                switchFilterTo(new GPUImageSobelEdgeDetection(););
+                switchFilterTo(new GPUImageSobelEdgeDetection());
                 break;
         }
     }
