@@ -56,4 +56,5 @@ dependencies {
     compile group: 'org.bytedeco.javacpp-presets', name: 'ffmpeg', version: '2.5.1-0.10', classifier: 'android-arm'
     compile group: 'org.bytedeco', name: 'javacv', version: '0.10'
     compile group: 'com.fitbit', name: 'fitbit4j', version: '1.0.25'
+    compile group: 'jp.co.cyberagent.android.gpuimage', name: 'gpuimage-library', version: '1.2.3'
 }
