@@ -16,14 +16,6 @@ public class MainMenuActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         final Activity thisActivity = this;
-
-        final Button button = (Button) findViewById(R.id.start);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                final Intent intent = new Intent(thisActivity, VideoActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
 

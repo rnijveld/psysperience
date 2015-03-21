@@ -30,15 +30,5 @@
             android:label="@string/title_activity_media" >
         </activity>
         <activity android:name=".GpuImageActivity" android:label="GpuImageActivity"></activity>
-        <activity
-            android:name=".VideoActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_video"
-            android:parentActivityName=".MainMenuActivity"
-            android:theme="@style/FullscreenTheme" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="MainMenuActivity" />
-        </activity>
     </application>
 </manifest>
