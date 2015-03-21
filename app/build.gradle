@@ -17,8 +17,10 @@ repositories {
         url 'https://raw.github.com/vRallev/mvn-repo/master/'
     }
 }
-
 android {
+    lintOptions {
+        abortOnError false
+    }
     compileSdkVersion 21
     buildToolsVersion "22.0.0"
 

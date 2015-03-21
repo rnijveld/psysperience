@@ -32,77 +32,10 @@ public class MediaActivity extends Activity {
         tmpaudiofile += "/tmpaudio.aac";
     }
 
-    private void startRecording() {
-        mRecorder = new MediaRecorder();
-        try{
-            mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        } catch (IllegalStateException e) {
-            Log.e(LOG_TAG, "record set audiosource failed");
-        }
-
-        try{
-            mRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
-        } catch (IllegalStateException e) {
-            Log.e(LOG_TAG, "record set outputformat failed");
-        }
-
-        try{
-            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        } catch (IllegalStateException e) {
-            Log.e(LOG_TAG, "record set audioencode failed");
-        }
-
-        try{
-//            mRecorder.setOutputFile(tmpaudiofile);
-            mRecorder.setOutputFile(tmpaudiofile);
-        } catch (IllegalStateException e) {
-            Log.e(LOG_TAG, "record set outputfile failed");
-        }
-
-        try {
-            mRecorder.prepare();
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "record record prepare() failed");
-        }
-        try{
-            mRecorder.start();
-        } catch (IllegalStateException e) {
-            Log.e(LOG_TAG, "record start failed");
-        }
-        try{
-            mRecorder.release();
-        } catch (IllegalStateException e) {
-            Log.e(LOG_TAG, "record release failed");
-        }
-    }
-
-    private void startPlaying() {
-
-        mPlayer = new MediaPlayer();
-        try {
-            mPlayer.setDataSource(tmpaudiofile);
-
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "play setdatasource failed");
-        }
-
-        try {
-            mPlayer.prepare();
-
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "play prepare() failed");
-        }
-
-        try {
-            mPlayer.start();
-
-        } catch (IllegalStateException e) {
-            Log.e(LOG_TAG, "play start failed");
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        playBackground();
+        playSchizo();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media);
 
@@ -138,7 +71,18 @@ public class MediaActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void playRandom() {
+    public void playBackground(){
+        final MediaPlayer mp_background = MediaPlayer.create(this, R.raw.background_sound);
+        mp_background.setVolume(0.5f, 0.5f);
+        mp_background.start();
+    }
+
+    public void playSchizo(){
+        final MediaPlayer mp_schizo = MediaPlayer.create(this, R.raw.schizo_sound);
+        mp_schizo.start();
+    }
+
+    public void playRandom(){
         // load all the sounds! BTW, it's only 01:24 :')
         final MediaPlayer mp_0 = MediaPlayer.create(this, R.raw.a);
         final MediaPlayer mp_1 = MediaPlayer.create(this, R.raw.b);

@@ -13,15 +13,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="geluidje"
-            android:id="@+id/short_media" android:layout_centerHorizontal="true" android:layout_centerVertical="true"/>
-    <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="GELUID"
-            android:id="@+id/long_media" android:layout_below="@+id/short_media" android:layout_centerHorizontal="true"/>
+            android:id="@+id/long_media" android:layout_centerHorizontal="true" android:layout_centerVertical="true"/>
 
 </RelativeLayout>
