@@ -1,41 +1,23 @@
 package nl.droptables.psysperience.app;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.media.MediaPlayer;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.View;
-import android.widget.SeekBar;
 import com.google.vrtoolkit.cardboard.*;
 import jp.co.cyberagent.android.gpuimage.*;
 import nl.droptables.psysperience.app.helper.CameraHelper;
 import nl.droptables.psysperience.app.helper.GPUImageFilterTools;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import android.os.Handler;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.Window;
 import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
 import nl.droptables.psysperience.app.cardboard.GPUImage;
-import nl.droptables.psysperience.app.helper.CameraHelper;
-import nl.droptables.psysperience.app.helper.GPUImageFilterTools;
-
-import javax.microedition.khronos.egl.EGLConfig;
 
 public class GpuImageActivity extends CardboardActivity {
 
@@ -77,7 +59,7 @@ public class GpuImageActivity extends CardboardActivity {
                 }
             }
         );
-        applyFilters();
+        // applyFilters();
         playBackground();
     }
 
