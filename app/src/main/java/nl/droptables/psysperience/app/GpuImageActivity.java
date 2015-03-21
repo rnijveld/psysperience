@@ -38,7 +38,7 @@ import nl.droptables.psysperience.app.helper.GPUImageFilterTools;
 
 import javax.microedition.khronos.egl.EGLConfig;
 
-public class GpuImageActivity extends Activity implements View.OnClickListener {
+public class GpuImageActivity extends Activity {
 
     private GPUImage mGPUImage;
     private CameraHelper mCameraHelper;
@@ -63,12 +63,6 @@ public class GpuImageActivity extends Activity implements View.OnClickListener {
 
         mCameraHelper = new CameraHelper();
         mCamera = new CameraLoader();
-
-        View cameraSwitchView = findViewById(R.id.img_switch_camera);
-        cameraSwitchView.setOnClickListener(this);
-        if (!mCameraHelper.hasFrontCamera() || !mCameraHelper.hasBackCamera()) {
-            cameraSwitchView.setVisibility(View.GONE);
-        }
 
         getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(
             new View.OnSystemUiVisibilityChangeListener() {
@@ -134,15 +128,6 @@ public class GpuImageActivity extends Activity implements View.OnClickListener {
     protected void onPause() {
         mCamera.onPause();
         super.onPause();
-    }
-
-    @Override
-    public void onClick(final View v) {
-        switch (v.getId()) {
-            case R.id.img_switch_camera:
-                mCamera.switchCamera();
-                break;
-        }
     }
 
     public void applyFilters() {
