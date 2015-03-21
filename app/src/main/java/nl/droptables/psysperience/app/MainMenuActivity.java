@@ -48,4 +48,9 @@ public class MainMenuActivity extends CardboardActivity {
         Intent intent = new Intent(this, GpuImageActivity.class);
         startActivity(intent);
     }
+
+    public void openRecordActivity(View view) {
+        Intent intent = new Intent(this, GpuImageActivity.class);
+        startActivity(intent);
+    }
 }
