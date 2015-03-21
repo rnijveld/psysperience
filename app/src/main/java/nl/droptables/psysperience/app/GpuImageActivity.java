@@ -8,13 +8,10 @@ import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
-import jp.co.cyberagent.android.gpuimage.GPUImage;
-import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
-import jp.co.cyberagent.android.gpuimage.GPUImageSepiaFilter;
+import jp.co.cyberagent.android.gpuimage.*;
 import nl.droptables.psysperience.app.helper.CameraHelper;
 import nl.droptables.psysperience.app.helper.GPUImageFilterTools;
 
@@ -22,9 +19,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+import android.os.Handler;
 
 public class GpuImageActivity extends Activity implements SeekBar.OnSeekBarChangeListener, View.OnClickListener {
 
@@ -33,6 +32,10 @@ public class GpuImageActivity extends Activity implements SeekBar.OnSeekBarChang
     private CameraLoader mCamera;
     private GPUImageFilter mFilter;
     private GPUImageFilterTools.FilterAdjuster mFilterAdjuster;
+    private int numberOfFilters = 11;
+    private Timer timer;
+    private TimerTask timerTask;
+    private Handler handler;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -53,7 +56,8 @@ public class GpuImageActivity extends Activity implements SeekBar.OnSeekBarChang
         if (!mCameraHelper.hasFrontCamera() || !mCameraHelper.hasBackCamera()) {
             cameraSwitchView.setVisibility(View.GONE);
         }
-        applyRandomFilter(mGPUImage, 1, 1);
+
+        applyFilters();
     }
 
     @Override
@@ -102,17 +106,76 @@ public class GpuImageActivity extends Activity implements SeekBar.OnSeekBarChang
         }
     }
 
-    public void applyRandomFilter(GPUImage mGPUImage, int duration, int percentage) {
-        GPUImageFilter filter = getRandomFilter();
-        switchFilterTo(filter);
-        mFilterAdjuster.adjust(percentage);
+    public void applyFilters() {
+        applyRandomFilter(-1);
+        //set a new Timer
+        timer = new Timer();
+//
+//        //initialize the TimerTask's job
+        initializeTimerTask(this);
+//
+//        //schedule the timer, after the first 500ms the TimerTask will run every 1000ms
+        timer.schedule(timerTask, 500, 1000);
     }
 
-    public void getRandomFilter() {
-        String[] filters = {"Contrast","Hue","Gamma"};
-        int rand = MediaActivity.randInt(0,filters.length-1);
-        return filters.;
+    public void initializeTimerTask(GpuImageActivity gia) {
+        timerTask = new TimerTask() {
+            public void run(GpuImageActivity gia) {
+                handler.post(new Runnable() {
+                    public void run() {
+                        gia.applyRandomFilter(-1);
+                    }
+                });
+            }
+        };
     }
+
+    public void applyRandomFilter(int rand) {
+        if (rand == -1) {
+            rand = MediaActivity.randInt(0, numberOfFilters);
+        }
+
+        switch (rand) {
+            case 0:
+                switchFilterTo(new GPUImageContrastFilter(2.0f));
+                break;
+            case 1:
+                switchFilterTo(new GPUImageHueFilter(90.0f));
+                break;
+            case 2:
+                switchFilterTo(new GPUImageGammaFilter(2.0f));
+                break;
+            case 3:
+                switchFilterTo(new GPUImageBrightnessFilter(1.5f));
+                break;
+            case 4:
+                switchFilterTo(new GPUImageSepiaFilter());
+                break;
+            case 5:
+                switchFilterTo(new GPUImageSobelEdgeDetection());
+                break;
+            case 6:
+                switchFilterTo(new GPUImageEmbossFilter());
+                break;
+            case 7:
+                switchFilterTo(new GPUImageSaturationFilter(1.0f));
+                break;
+            case 8:
+                switchFilterTo(new GPUImageExposureFilter(0.0f));
+                break;
+            case 9:
+                switchFilterTo(new GPUImageMonochromeFilter(1.0f, new float[]{0.6f, 0.45f, 0.3f, 1.0f}));
+                break;
+            case 10:
+                switchFilterTo(new GPUImageSwirlFilter());
+                mFilterAdjuster.adjust(5);
+                break;
+            case 11:
+                switchFilterTo(new GPUImageColorBalanceFilter());
+                break;
+        }
+    }
+
 
     private void takePicture() {
         // TODO get a size that is about the size of the screen
@@ -281,5 +344,6 @@ public class GpuImageActivity extends Activity implements SeekBar.OnSeekBarChang
             mCameraInstance.release();
             mCameraInstance = null;
         }
+
     }
 }
