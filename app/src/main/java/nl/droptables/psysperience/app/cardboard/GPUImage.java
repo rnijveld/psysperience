@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.android.gpuimage.GPUImage.ScaleType;
+import nl.droptables.psysperience.app.filter.FilterStack;
 
 public class GPUImage {
     private final Context mContext;
@@ -47,6 +48,7 @@ public class GPUImage {
     private GPUImageFilter mFilter;
     private Bitmap mCurrentBitmap;
     private ScaleType mScaleType;
+    private FilterStack mFilterStack;
 
     public GPUImage(Context context) {
         this.mScaleType = ScaleType.CENTER_INSIDE;
@@ -55,8 +57,14 @@ public class GPUImage {
         } else {
             this.mContext = context;
             this.mFilter = new GPUImageFilter();
-            this.mRenderer = new GPUImageRenderer(this.mFilter);
+            this.mFilterStack = new FilterStack(this);
+            this.mRenderer = new GPUImageRenderer(this.mFilter, this.mFilterStack);
         }
+    }
+
+    public FilterStack getFilterStack()
+    {
+        return mFilterStack;
     }
 
     private boolean supportsOpenGLES2(Context context) {
@@ -194,7 +202,7 @@ public class GPUImage {
             }
         }
 
-        GPUImageRenderer renderer1 = new GPUImageRenderer(this.mFilter);
+        GPUImageRenderer renderer1 = new GPUImageRenderer(this.mFilter, this.mFilterStack);
         renderer1.setRotation(Rotation.NORMAL, this.mRenderer.isFlippedHorizontally(), this.mRenderer.isFlippedVertically());
         renderer1.setScaleType(this.mScaleType);
         PixelBuffer buffer = new PixelBuffer(bitmap.getWidth(), bitmap.getHeight());
@@ -215,7 +223,7 @@ public class GPUImage {
 
     public static void getBitmapForMultipleFilters(Bitmap bitmap, List<GPUImageFilter> filters, GPUImage.ResponseListener<Bitmap> listener) {
         if(!filters.isEmpty()) {
-            GPUImageRenderer renderer = new GPUImageRenderer((GPUImageFilter)filters.get(0));
+            GPUImageRenderer renderer = new GPUImageRenderer((GPUImageFilter)filters.get(0), null);
             renderer.setImageBitmap(bitmap, false);
             PixelBuffer buffer = new PixelBuffer(bitmap.getWidth(), bitmap.getHeight());
             buffer.setRenderer(renderer);

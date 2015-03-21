@@ -57,6 +57,7 @@ import jp.co.cyberagent.android.gpuimage.OpenGlUtils;
 import jp.co.cyberagent.android.gpuimage.Rotation;
 import jp.co.cyberagent.android.gpuimage.GPUImage.ScaleType;
 import jp.co.cyberagent.android.gpuimage.util.TextureRotationUtil;
+import nl.droptables.psysperience.app.filter.FilterStack;
 
 @TargetApi(11)
 public class GPUImageRenderer implements GLSurfaceView.Renderer, Camera.PreviewCallback, CardboardView.StereoRenderer {
@@ -80,8 +81,10 @@ public class GPUImageRenderer implements GLSurfaceView.Renderer, Camera.PreviewC
     private boolean mFlipHorizontal;
     private boolean mFlipVertical;
     private GPUImage.ScaleType mScaleType;
+    private FilterStack mFilterStack;
 
-    public GPUImageRenderer(GPUImageFilter filter) {
+    public GPUImageRenderer(GPUImageFilter filter, FilterStack filterStack) {
+        this.mFilterStack = filterStack;
         this.mScaleType = GPUImage.ScaleType.CENTER_CROP;
         this.mFilter = filter;
         this.mRunOnDraw = new LinkedList();
@@ -303,12 +306,12 @@ public class GPUImageRenderer implements GLSurfaceView.Renderer, Camera.PreviewC
 
     @Override
     public void onNewFrame(HeadTransform headTransform) {
-        GLES20.glClear(16640);
-
+        this.mFilterStack.touch();
     }
 
     @Override
     public void onDrawEye(Eye eye) {
+        GLES20.glClear(16640);
         this.runAll(this.mRunOnDraw);
         this.mFilter.onDraw(this.mGLTextureId, this.mGLCubeBuffer, this.mGLTextureBuffer);
         this.runAll(this.mRunOnDrawEnd);

@@ -26,7 +26,6 @@ public class GpuImageActivity extends CardboardActivity {
     private CameraLoader mCamera;
     private GPUImageFilter mFilter;
     private GPUImageFilterTools.FilterAdjuster mFilterAdjuster;
-    private int numberOfFilters = 8;
     private Timer timer;
     private TimerTask timerTask;
     private Handler handler;
@@ -59,7 +58,7 @@ public class GpuImageActivity extends CardboardActivity {
                 }
             }
         );
-         applyFilters();
+        mGPUImage.getFilterStack().update();
         playBackground();
     }
 
@@ -120,59 +119,9 @@ public class GpuImageActivity extends CardboardActivity {
         super.onPause();
     }
 
-    public void applyFilters() {
-        applyRandomFilter(-1);
-    }
-
     @Override
     public void onCardboardTrigger() {
-        applyRandomFilter(-1);
-    }
-
-    public void applyRandomFilter(int rand) {
-        if (rand == -1) {
-            rand = this.randInt(0, numberOfFilters);
-        }
-
-        switch (rand) {
-            case 0:
-                switchFilterTo(new GPUImageContrastFilter(2.0f));
-                break;
-            case 1:
-                switchFilterTo(new GPUImageHueFilter(90.0f));
-                break;
-            case 2:
-                switchFilterTo(new GPUImageGammaFilter(2.0f));
-                break;
-            case 3:
-                switchFilterTo(new GPUImageHueFilter(70.0f));
-                break;
-            case 4:
-                switchFilterTo(new GPUImageSepiaFilter());
-                break;
-            case 5:
-                switchFilterTo(new GPUImageHueFilter(50.0f));
-                break;
-            case 6:
-                switchFilterTo(new GPUImageEmbossFilter());
-                break;
-            case 7:
-                switchFilterTo(new GPUImageSwirlFilter());
-                mFilterAdjuster.adjust(5);
-                break;
-            case 8:
-                switchFilterTo(new GPUImageSobelEdgeDetection());
-                break;
-        }
-    }
-
-    private void switchFilterTo(final GPUImageFilter filter) {
-        if (mFilter == null
-                || (filter != null && !mFilter.getClass().equals(filter.getClass()))) {
-            mFilter = filter;
-            mGPUImage.setFilter(mFilter);
-            mFilterAdjuster = new GPUImageFilterTools.FilterAdjuster(mFilter);
-        }
+        mGPUImage.getFilterStack().update();
     }
 
     @Override
@@ -239,28 +188,5 @@ public class GpuImageActivity extends CardboardActivity {
             mCameraInstance = null;
         }
 
-    }
-
-    /**
-     * Returns a pseudo-random number between min and max, inclusive.
-     * The difference between min and max can be at most
-     * <code>Integer.MAX_VALUE - 1</code>.
-     *
-     * @param min Minimum value
-     * @param max Maximum value.  Must be greater than min.
-     * @return Integer between min and max, inclusive.
-     * @see java.util.Random#nextInt(int)
-     */
-    public static int randInt(int min, int max) {
-
-        // NOTE: Usually this should be a field rather than a method
-        // variable so that it is not re-seeded every call.
-        Random rand = new Random();
-
-        // nextInt is normally exclusive of the top value,
-        // so add 1 to make it inclusive
-        int randomNum = rand.nextInt((max - min) + 1) + min;
-
-        return randomNum;
     }
 }
