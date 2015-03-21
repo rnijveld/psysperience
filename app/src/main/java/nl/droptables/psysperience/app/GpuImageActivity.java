@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -52,6 +53,7 @@ public class GpuImageActivity extends Activity implements SeekBar.OnSeekBarChang
         if (!mCameraHelper.hasFrontCamera() || !mCameraHelper.hasBackCamera()) {
             cameraSwitchView.setVisibility(View.GONE);
         }
+        applyRandomFilter(mGPUImage, 1, 1);
     }
 
     @Override
@@ -98,6 +100,18 @@ public class GpuImageActivity extends Activity implements SeekBar.OnSeekBarChang
                 mCamera.switchCamera();
                 break;
         }
+    }
+
+    public void applyRandomFilter(GPUImage mGPUImage, int duration, int percentage) {
+        GPUImageFilter filter = getRandomFilter();
+        switchFilterTo(filter);
+        mFilterAdjuster.adjust(percentage);
+    }
+
+    public void getRandomFilter() {
+        String[] filters = {"Contrast","Hue","Gamma"};
+        int rand = MediaActivity.randInt(0,filters.length-1);
+        return filters.;
     }
 
     private void takePicture() {
